@@ -19,8 +19,15 @@ CSV must contain `timestamp,close`, with one hourly observation per row.
 ## Quick start
 
 ```bash
+pip install -r requirements.txt
+PYTHONPATH=src python -m eth_diffusion.download \
+  --output data/eth_usd_1h.csv --period 60d
 PYTHONPATH=src python -m eth_diffusion.run --csv data/eth_usd_1h.csv
 ```
+
+Yahoo Finance exposes a limited amount of intraday history; the downloader
+defaults to 60 days for the 1-hour interval. This limitation should be stated
+in the paper and, for a longer study, data should be collected periodically.
 
 The model is implemented in `src/eth_diffusion/diffusion.py`. Fit it only on
 the training split, then call `smooth` on validation/test data. Keep the seed,
